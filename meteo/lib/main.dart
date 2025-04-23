@@ -18,7 +18,7 @@ class HomeScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.white70,
+      backgroundColor: Colors.white,
 
       // Appbar per logo e tasto menu
       appBar: AppBar(
@@ -116,8 +116,9 @@ class HomeScreen extends StatelessWidget {
                   Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      infoBullet("> QUALITÀ ARIA"),
-                      infoBullet("> RISCALDAMENTO GLOBALE"),
+                      infoBullet("> QUALITÀ ARIA: AQI(53)"),
+                      infoBullet("> RISCALDAMENTO GLOBALE:\n+1.56°C sopra la media"),
+                      infoBullet("> CONCENTRAZIONE CO₂: 424 ppm"),
                       infoBullet("> ALTRO"),
                     ],
                   )
