@@ -1,10 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/cupertino.dart';
 
 void main() {
-  runApp(EcoMeteoApp());
+  runApp(EcoWeatherApp());
 }
 
-class EcoMeteoApp extends StatelessWidget {
+class EcoWeatherApp extends StatelessWidget {
+  const EcoWeatherApp({super.key});
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -15,6 +18,8 @@ class EcoMeteoApp extends StatelessWidget {
 }
 
 class HomeScreen extends StatelessWidget {
+  const HomeScreen({super.key});
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -22,13 +27,13 @@ class HomeScreen extends StatelessWidget {
 
       // Appbar per logo e tasto menu
       appBar: AppBar(
-      // Logo EcoMeteo
+      // Logo EcoWeather
         backgroundColor: Colors.transparent,
         title: Row(
           children: [
             Icon(Icons.eco, color: Colors.green, size: 28),
             SizedBox(width: 8),
-            Text("EcoMeteo",
+            Text("EcoWeather",
                 style: TextStyle(
                     fontSize: 24,
                     fontWeight: FontWeight.bold,
@@ -47,7 +52,7 @@ class HomeScreen extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Icon(Icons.eco, color: Colors.greenAccent, size: 28),
-                  Text("EcoMeteo",
+                  Text("EcoWeather",
                     style: TextStyle(color: Colors.white, fontSize: 24)),
                 ],
               ),
@@ -72,7 +77,7 @@ class HomeScreen extends StatelessWidget {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              // Nome città e data a sinistra e simbolo meteo
+              // Nome città e data a sinistra e simbolo Weather
               Text("Roma",
                   style:
                       TextStyle(fontSize: 32, fontWeight: FontWeight.bold)),
@@ -99,42 +104,43 @@ class HomeScreen extends StatelessWidget {
                 ],
               ),
               SizedBox(height: 50),
+
               // giudizio ambientale
-              Text("GIUDIZIO",
-                  style:
-                      TextStyle(fontSize: 20, fontWeight: FontWeight.bold)),
-              SizedBox(height: 12),
-              Row(
-                children: [
-                  CircleAvatar(
+              Center(
+                child: Column(
+                  children: [
+                    Text("BILANCIO AMBIENTALE",
+                        style:
+                            TextStyle(fontSize: 20, fontWeight: FontWeight.bold)
+                    ),
+
+                  SizedBox(height: 25),
+
+                    // Faccina
+                    CircleAvatar(
                     radius: 48,
                     backgroundColor: Colors.green,
-                    child: Icon(Icons.sentiment_satisfied_alt,
-                        size: 48, color: Colors.black),
+                    child: Icon(Icons.sentiment_satisfied_alt_outlined,
+                        size: 70, color: Colors.black),
                   ),
-                  SizedBox(width: 24),
-                  Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      infoBullet("> QUALITÀ ARIA: AQI(53)"),
-                      infoBullet("> RISCALDAMENTO GLOBALE:\n+1.56°C sopra la media"),
-                      infoBullet("> CONCENTRAZIONE CO₂: 424 ppm"),
-                      infoBullet("> ALTRO"),
-                    ],
-                  )
-                ],
-              ),
-              SizedBox(height: 16),
-              Container(
-                decoration: BoxDecoration(
-                  border: Border.all(color: Colors.black, width: 2),
-                  borderRadius: BorderRadius.circular(10),
+
+                  SizedBox(height: 20),
+
+                    // Bottone
+                    OutlinedButton(
+                      onPressed: () => mostraDettagli(context),
+                      style: OutlinedButton.styleFrom(
+                        side: BorderSide(color: Colors.black, width: 2),
+                        padding: EdgeInsets.symmetric(horizontal: 24, vertical: 12),
+                    ),
+                      child : Text(
+                        "APPROFONDISCI",
+                        style: TextStyle(fontSize: 16),)
+                    ),
+                  ],
                 ),
-                padding: EdgeInsets.symmetric(horizontal: 24, vertical: 12),
-                child: Text("75%",
-                    style:
-                        TextStyle(fontSize: 24, fontWeight: FontWeight.bold)),
-              )
+
+              ),
             ],
           ),
         ),
@@ -155,14 +161,64 @@ class HomeScreen extends StatelessWidget {
     );
   }
 
-  Widget infoBullet(String text) {
-    return Padding(
-      padding: const EdgeInsets.only(bottom: 6.0),
-      child: Text(text,
-          style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold)),
+  void mostraDettagli(BuildContext context) {
+    Navigator.push(
+      context,
+      PageRouteBuilder(
+        transitionDuration: Duration(milliseconds: 600),
+        reverseTransitionDuration: Duration(milliseconds: 600),
+        pageBuilder: (context, animation, secondaryAnimation) => DettagliScreen(),
+        transitionsBuilder: (context, animation, secondaryAnimation, child) {
+          final tween = Tween<Offset>(
+            begin: Offset(0.0, 1.0), // da sotto verso il centro
+            end: Offset.zero,
+          ).chain(CurveTween(curve: Curves.easeInOut));
+
+          return SlideTransition(
+            position: animation.drive(tween),
+            child: child,
+          );
+        },
+      ),
+    );
+  }
+}
+
+
+class DettagliScreen extends StatelessWidget {
+  const DettagliScreen({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: Text("Dettagli"),
+      ),
+      body: Center(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            infoBullet("Dettaglio 1", Icons.check, Colors.green),
+            infoBullet("Dettaglio 2", Icons.warning, Colors.red),
+            infoBullet("Dettaglio 2", Icons.warning, Colors.red),
+            infoBullet("Dettaglio 2", Icons.warning, Colors.red),
+          ],
+        ),
+      ),
     );
   }
 
-  void apriMenu() {
+
+  Widget infoBullet(String text, IconData iconData, Color color) {
+    return Padding(
+      padding: const EdgeInsets.only(bottom: 6.0),
+      child: Row(
+        children: [
+          Icon(iconData, color: color, size: 30),
+          SizedBox(width: 8),
+          Text(text, style: TextStyle(fontSize: 30, fontWeight: FontWeight.bold,)),
+        ],
+      ),
+    );
   }
 }
