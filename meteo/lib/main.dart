@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/cupertino.dart';
+import 'dart:convert'; // per jsonDecode
+import 'package:http/http.dart' as http;
 
 void main() {
   runApp(EcoWeatherApp());
@@ -17,9 +18,14 @@ class EcoWeatherApp extends StatelessWidget {
   }
 }
 
-class HomeScreen extends StatelessWidget {
+class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
 
+  @override
+  _HomeScreenState createState() => _HomeScreenState();
+}
+
+class _HomeScreenState extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -209,6 +215,22 @@ class HomeScreen extends StatelessWidget {
       ),
     );
   }
+
+  // PARTE PER API, DA AGGIUNGERE LA KEY
+  Future<double> fetchTemperature(String cityName) async {
+  final apiKey = 'LA_TUA_API_KEY'; // << qui metti la tua vera chiave
+  final url = 'https://api.openweathermap.org/data/2.5/weather?q=$cityName&appid=$apiKey&units=metric';
+
+  final response = await http.get(Uri.parse(url));
+
+  if (response.statusCode == 200) {
+    final data = json.decode(response.body);
+    double temp = data['main']['temp'].toDouble();
+    return temp;
+  } else {
+    throw Exception('Errore nel caricamento dei dati meteo');
+  }
+}
 }
 
 
