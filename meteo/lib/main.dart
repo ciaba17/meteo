@@ -68,7 +68,10 @@ class _HomeScreenState extends State<HomeScreen> {
             ListTile(
               leading: Icon(Icons.info),
               title: Text("Info"),
-              onTap: () => Navigator.pop(context),
+              onTap: () => Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => InfoScreen()),
+              ),
             ),
             ListTile(
               leading: Icon(Icons.settings),
@@ -432,6 +435,71 @@ class DettagliMeteoScreen extends StatelessWidget {
     );
   }
 
+
+  Widget infoBullet(String text, IconData iconData, Color color) {
+    return Padding(
+      padding: const EdgeInsets.only(bottom: 6.0),
+      child: Row(
+        children: [
+          Icon(iconData, color: color, size: 30),
+          SizedBox(width: 8),
+          Text(text, style: TextStyle(fontSize: 30, fontWeight: FontWeight.bold,)),
+        ],
+      ),
+    );
+  }
+}
+
+class InfoScreen extends StatelessWidget {
+  const InfoScreen({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      backgroundColor: Colors.white,
+
+      //Elenco Parametri
+      body: SingleChildScrollView( // per lo scorrimento
+        child: Center(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.start,
+            children: [
+              SizedBox(height: 5),
+
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Icon(Icons.info, color: Colors.grey, size: 28),
+                  Text("Info",
+                      style:
+                          TextStyle(fontSize: 25, fontWeight: FontWeight.bold, color: Colors.grey)
+                  ),
+                ],
+              ),
+
+              SizedBox(height: 25),
+
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceAround,
+                children: [
+                  Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      infoBullet("Versione App", Icons.info, Colors.blue),
+                      infoBullet("Sviluppatore", Icons.person, Colors.green),
+                      infoBullet("Contatti", Icons.mail, Colors.redAccent),
+                      infoBullet("Privacy Policy", Icons.lock, Colors.deepOrange),
+                    ],
+                  ),
+                ],
+              ),
+
+            ],
+          ),
+        ),
+      ),
+    );
+  }
 
   Widget infoBullet(String text, IconData iconData, Color color) {
     return Padding(
