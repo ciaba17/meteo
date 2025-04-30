@@ -310,20 +310,20 @@ class InquinamentoScreen extends StatelessWidget {
                   Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      infoBullet("AQI", Icons.speed, Colors.orange),
-                      infoBullet("PM 2.5", Icons.blur_on, Colors.redAccent),
-                      infoBullet("PM 10", Icons.blur_on, Colors.deepOrange),
-                      infoBullet("NO2", Icons.science, Colors.amber),
+                      infoBullet("AQI: 85 ", Icons.speed, Colors.orange, "L’Indice di Qualità dell’Aria (AQI) valuta quanto l’aria è salubre, combinando diversi inquinanti in un unico valore."),
+                      infoBullet("PM 2.5: 35µg/m³ ", Icons.blur_on, Colors.redAccent, "Micropolveri con diametro inferiore a 2.5 µm: penetrano nei polmoni e possono entrare nel sangue, causando seri danni alla salute."),
+                      infoBullet("PM 10: 60µg/m³ ", Icons.blur_on, Colors.deepOrange, "Particelle sospese con diametro inferiore a 10 µm: possono essere inalate e causare problemi respiratori e infiammazioni."),
+                      infoBullet("NO2: 45µg/m³ ", Icons.science, Colors.amber, "Il biossido di azoto è un gas irritante prodotto soprattutto dai veicoli a motore e può peggiorare l’asma e altre malattie respiratorie."),
                     ],
                   ),
 
                   Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      infoBullet("O3", Icons.cloud, Colors.lightBlue),
-                      infoBullet("CO", Icons.local_fire_department, Colors.grey),
-                      infoBullet("SO2", Icons.science, Colors.purple),
-                      infoBullet("NH3", Icons.science, Colors.teal),
+                      infoBullet("O3: 70µg/m³ ", Icons.cloud, Colors.lightBlue, "L’ozono troposferico si forma nell’atmosfera e può causare irritazioni a occhi e polmoni, soprattutto nelle giornate calde e soleggiate."),
+                      infoBullet("CO: 0.7 mg/m³ ", Icons.local_fire_department, Colors.grey, "Il monossido di carbonio è un gas inodore e pericoloso prodotto dalla combustione incompleta, che riduce l’ossigeno trasportato nel sangue."),
+                      infoBullet("SO2: 10µg/m³ ", Icons.science, Colors.purple, "Il biossido di zolfo proviene soprattutto da centrali a carbone e attività industriali, ed è dannoso per il sistema respiratorio."),
+                      infoBullet("NH3: 15µg/m³ ", Icons.science, Colors.teal, "L’ammoniaca è rilasciata principalmente dall’agricoltura e può contribuire alla formazione di particolato fine nell’aria."),
                     ],
                   ),
                 ],
@@ -385,14 +385,26 @@ class InquinamentoScreen extends StatelessWidget {
     );
   }
 
-  Widget infoBullet(String text, IconData iconData, Color color) {
+  Widget infoBullet(String testoPrincipale, IconData iconData, Color color, String testoSecondario) {
     return Padding(
       padding: const EdgeInsets.only(bottom: 6.0),
       child: Row(
         children: [
           Icon(iconData, color: color, size: 30),
           SizedBox(width: 8),
-          Text(text, style: TextStyle(fontSize: 30, fontWeight: FontWeight.bold,)),
+          Text(testoPrincipale, style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold,)),
+          Tooltip(
+            message: testoSecondario,
+            textStyle: TextStyle(
+              fontSize: 8,
+              color: Colors.black,
+            ),
+            child: Icon(Icons.info, size: 20, color: Colors.blue),
+            decoration: BoxDecoration(
+              color: Colors.white,
+              borderRadius: BorderRadius.circular(10),
+            ),
+          ),
         ],
       ),
     );
