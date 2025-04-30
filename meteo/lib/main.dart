@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'dart:convert'; // per jsonDecode
 import 'package:http/http.dart' as http;
 import 'package:fl_chart/fl_chart.dart';// per i grafici
+import 'package:sizer/sizer.dart';
 
 void main() {
   runApp(EcoWeatherApp());
@@ -12,16 +13,18 @@ class EcoWeatherApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      debugShowCheckedModeBanner: false,
-      home: HomeScreen(),
+    return Sizer(
+      builder: (context, orientation, deviceType) {
+        return MaterialApp(
+          home: HomeScreen(),
+        );
+      },
     );
   }
 }
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
-
   @override
   _HomeScreenState createState() => _HomeScreenState();
 }
@@ -38,11 +41,11 @@ class _HomeScreenState extends State<HomeScreen> {
         backgroundColor: Colors.transparent,
         title: Row(
           children: [
-            Icon(Icons.eco, color: Colors.green, size: 28),
-            SizedBox(width: 8),
+            Icon(Icons.eco, color: Colors.green, size: 7.w),
+            SizedBox(width: 2.w),
             Text("EcoWeather",
               style: TextStyle(
-                fontSize: 24,
+                fontSize: 6.w,
                 fontWeight: FontWeight.bold,
                 color: Colors.green[800]
               )
@@ -60,7 +63,7 @@ class _HomeScreenState extends State<HomeScreen> {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               InkWell(
-                onTap: () => mostaDettagliMeteo(context),
+                onTap: () => mostraDettagliMeteo(context),
                 // Nome città e data a sinistra e simbolo Weather
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -68,19 +71,19 @@ class _HomeScreenState extends State<HomeScreen> {
                     Column(
                       children: [
                         Text("Roma",
-                          style: TextStyle(fontSize: 32, fontWeight: FontWeight.bold)),
+                          style: TextStyle(fontSize: 10.w, fontWeight: FontWeight.bold)),
                         Text("24 aprile",
-                          style: TextStyle(fontSize: 20, color: Colors.grey[700])),
+                          style: TextStyle(fontSize: 4.5.w, color: Colors.grey[700])),
                         Text("20°",
-                          style:TextStyle(fontSize: 64, fontWeight: FontWeight.bold)),
+                          style:TextStyle(fontSize:  14.w, fontWeight: FontWeight.bold)),
                       ],
                     ),
-                    Icon(Icons.wb_cloudy, size: 72, color: Colors.grey[700])
+                    Icon(Icons.wb_cloudy, size: 17.w, color: Colors.grey[700])
                   ],
                 ),
               ),
                   // Caselle con le previsioni successive
-              SizedBox(height: 24),
+              SizedBox(height: 3.w),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceAround,
                   children: [
@@ -91,37 +94,40 @@ class _HomeScreenState extends State<HomeScreen> {
                   ],
                 ),
 
-                SizedBox(height: 50),
+                SizedBox(height: 0.9.w),
                 
                 // giudizio ambientale
                 Center(
                   child: Column(
                     children: [
                       Text("BILANCIO AMBIENTALE",
-                        style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold)),
+                        style: TextStyle(fontSize: 5.w, fontWeight: FontWeight.bold)),
       
-                      SizedBox(height: 25),
+                      SizedBox(height: 5.w),
                 
                       // Faccina
                       CircleAvatar(
-                      radius: 48,
+                      radius: 9.5.w,
                       backgroundColor: Colors.green,
                       child: Icon(Icons.sentiment_satisfied_alt_outlined,
-                          size: 70, color: Colors.black),
+                          size: 15.w, color: Colors.black),
                       ),
                 
-                        SizedBox(height: 20),
+                        SizedBox(height: 4.w),
                 
-                        // Bottone
+                        // Bottone APPROFONDISCI
                         OutlinedButton(
                           onPressed: () => mostraInquinamento(context),
                           style: OutlinedButton.styleFrom(
-                            side: BorderSide(color: Colors.black, width: 2),
-                            padding: EdgeInsets.symmetric(horizontal: 24, vertical: 12),
+                            side: BorderSide(color: Colors.black, width: 0.4.w),
+                            padding: EdgeInsets.symmetric(horizontal: 5.w, vertical: 2.5.w),
                           ),
                           child : Text(
                             "APPROFONDISCI",
-                            style: TextStyle(fontSize: 16),
+                            style: TextStyle(
+                              fontWeight: FontWeight.bold,
+                              fontSize: 3.5.w,
+                              color: Colors.black),
                           )
                         ),
                       ],
@@ -138,11 +144,11 @@ class _HomeScreenState extends State<HomeScreen> {
     return Column(
       children: [
         Text(day,
-            style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold)),
-        SizedBox(height: 4),
-        Icon(icon, size: 32, color: Colors.grey[700]),
-        SizedBox(height: 4),
-        Text(temp, style: TextStyle(fontSize: 16))
+            style: TextStyle(fontSize: 4.w, fontWeight: FontWeight.bold)),
+        SizedBox(height: 1.w),
+        Icon(icon, size: 7.5.w, color: Colors.grey[700]),
+        SizedBox(height: 1.w),
+        Text(temp, style: TextStyle(fontSize: 4.w))
       ],
     );
   }
@@ -169,7 +175,7 @@ class _HomeScreenState extends State<HomeScreen> {
     );
   }
   
-  void mostaDettagliMeteo(BuildContext context) {
+  void mostraDettagliMeteo(BuildContext context) {
     Navigator.push(
       context,
       PageRouteBuilder(
@@ -223,11 +229,11 @@ class InquinamentoScreen extends StatelessWidget {
         backgroundColor: Colors.transparent,
         title: Row(
           children: [
-            Icon(Icons.eco, color: Colors.green, size: 28),
-            SizedBox(width: 8),
+            Icon(Icons.eco, color: Colors.green, size: 7.w),
+            SizedBox(width: 2.w),
             Text("EcoWeather",
                 style: TextStyle(
-                    fontSize: 24,
+                    fontSize: 6.w,
                     fontWeight: FontWeight.bold,
                     color: Colors.green[800]))
           ],
@@ -242,14 +248,14 @@ class InquinamentoScreen extends StatelessWidget {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.start,
             children: [
-              SizedBox(height: 5),
+              SizedBox(height: 1.2.w),
 
               Text("QUALITÀ DELL'ARIA",
                   style:
-                      TextStyle(fontSize: 35, fontWeight: FontWeight.bold, color: const Color.fromARGB(255, 0, 100, 255))
+                      TextStyle(fontSize: 8.w, fontWeight: FontWeight.bold, color: const Color.fromARGB(255, 0, 100, 255))
               ),
 
-              SizedBox(height: 25),
+              SizedBox(height: 6.w),
 
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceAround,
@@ -276,7 +282,7 @@ class InquinamentoScreen extends StatelessWidget {
                 ],
               ),
 
-              SizedBox(height: 40),
+              SizedBox(height: 10.w),
 
               Text("EMISSIONI DI CO2",
                   style:
