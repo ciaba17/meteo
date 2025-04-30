@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'dart:convert'; // per jsonDecode
 import 'package:http/http.dart' as http;
+import 'package:fl_chart/fl_chart.dart';// per i grafici
 
 void main() {
   runApp(EcoWeatherApp());
@@ -78,7 +79,7 @@ class _HomeScreenState extends State<HomeScreen> {
         ),
       ),
 
-      body: SafeArea(
+      body: SingleChildScrollView(
         child: Padding(
           padding: const EdgeInsets.all(24.0),
           child: Column(
@@ -240,23 +241,149 @@ class InquinamentoScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.white,
+
+      // Appbar per logo e tasto menu
       appBar: AppBar(
-        title: Text("Dettagli"),
-      ),
-      body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
+      // Logo EcoWeather
+        backgroundColor: Colors.transparent,
+        title: Row(
           children: [
-            infoBullet("Dettaglio 1", Icons.check, Colors.green),
-            infoBullet("Dettaglio 2", Icons.warning, Colors.red),
-            infoBullet("Dettaglio 3", Icons.warning, Colors.red),
-            infoBullet("Dettaglio 4", Icons.warning, Colors.red),
+            Icon(Icons.eco, color: Colors.green, size: 28),
+            SizedBox(width: 8),
+            Text("EcoWeather",
+                style: TextStyle(
+                    fontSize: 24,
+                    fontWeight: FontWeight.bold,
+                    color: Colors.green[800]))
           ],
+        ),
+      ),
+
+      // Menu laterale
+      endDrawer: Drawer(
+        child: ListView(
+          children: [
+            DrawerHeader(
+              decoration: BoxDecoration(color: Colors.green),
+              child: Row(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Icon(Icons.eco, color: Colors.greenAccent, size: 28),
+                  Text("Dettagli",
+                    style: TextStyle(color: Colors.white, fontSize: 24)),
+                ],
+              ),
+            ),
+            ListTile(
+              leading: Icon(Icons.info),
+              title: Text("Info"),
+              onTap: () => Navigator.pop(context),
+            ),
+            ListTile(
+              leading: Icon(Icons.settings),
+              title: Text("Impostazioni"),
+              onTap: () => Navigator.pop(context),
+            ),
+          ],
+        ),
+      ),
+
+      //Elenco Parametri
+      body: SingleChildScrollView( // per lo scorrimento
+        child: Center(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.start,
+            children: [
+              SizedBox(height: 5),
+
+              Text("QUALITÀ DELL'ARIA",
+                  style:
+                      TextStyle(fontSize: 35, fontWeight: FontWeight.bold, color: const Color.fromARGB(255, 0, 100, 255))
+              ),
+
+              SizedBox(height: 25),
+
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceAround,
+                children: [
+                  Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      infoBullet("AQI", Icons.speed, Colors.orange),
+                      infoBullet("PM 2.5", Icons.blur_on, Colors.redAccent),
+                      infoBullet("PM 10", Icons.blur_on, Colors.deepOrange),
+                      infoBullet("NO2", Icons.science, Colors.amber),
+                    ],
+                  ),
+
+                  Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      infoBullet("O3", Icons.cloud, Colors.lightBlue),
+                      infoBullet("CO", Icons.local_fire_department, Colors.grey),
+                      infoBullet("SO2", Icons.science, Colors.purple),
+                      infoBullet("NH3", Icons.science, Colors.teal),
+                    ],
+                  ),
+                ],
+              ),
+
+              SizedBox(height: 40),
+
+              Text("EMISSIONI DI CO2",
+                  style:
+                      TextStyle(fontSize: 35, fontWeight: FontWeight.bold, color: const Color.fromARGB(255, 255, 0, 0))
+              ),
+
+              SizedBox(height: 20),
+
+              SizedBox(
+                height: 350,
+                child: PieChart(
+                  PieChartData(
+                    sections: [
+                      PieChartSectionData(
+                        value: 45,
+                        color: Colors.red,
+                        title: 'Trasporti\n45%',
+                        radius: 160,
+                        titleStyle: TextStyle(fontSize: 14, fontWeight: FontWeight.bold, color: Colors.black),
+                      ),
+                      PieChartSectionData(
+                        value: 30,
+                        color: Colors.orange,
+                        title: 'Industria\n30%',
+                        radius: 160,
+                        titleStyle: TextStyle(fontSize: 14, fontWeight: FontWeight.bold, color: Colors.black),
+                      ),
+                      PieChartSectionData(
+                        value: 15,
+                        color: Colors.green,
+                        title: 'Edifici\n15%',
+                        radius: 160,
+                        titleStyle: TextStyle(fontSize: 14, fontWeight: FontWeight.bold, color: Colors.black),
+                      ),
+                      PieChartSectionData(
+                        value: 10,
+                        color: Colors.blue,
+                        title: 'Agricoltura\n10%',
+                        radius: 160,
+                        titleStyle: TextStyle(fontSize: 14, fontWeight: FontWeight.bold, color: Colors.black),
+                      ),
+                    ],
+                    sectionsSpace: 0, //distanza tra gli spicchi
+                    centerSpaceRadius: 0, //vuoto nel centro
+                  ),
+                ),
+              ),
+
+            ],
+          ),
         ),
       ),
     );
   }
-
 
   Widget infoBullet(String text, IconData iconData, Color color) {
     return Padding(
@@ -271,7 +398,6 @@ class InquinamentoScreen extends StatelessWidget {
     );
   }
 }
-
 
 class DettagliMeteoScreen extends StatelessWidget {
   const DettagliMeteoScreen({super.key});
