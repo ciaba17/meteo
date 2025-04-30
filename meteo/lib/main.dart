@@ -50,37 +50,8 @@ class _HomeScreenState extends State<HomeScreen> {
           ]
         ),
       ),
-      // Menu laterale
-      endDrawer: Drawer(
-        child: ListView(
-          children: [
-            DrawerHeader(
-              decoration: BoxDecoration(color: Colors.green),
-              child: Row(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Icon(Icons.eco, color: Colors.greenAccent, size: 28),
-                  Text("EcoWeather",
-                    style: TextStyle(color: Colors.white, fontSize: 24)),
-                ],
-              ),
-            ),
-            ListTile(
-              leading: Icon(Icons.info),
-              title: Text("Info"),
-              onTap: () => Navigator.push(
-                context,
-                MaterialPageRoute(builder: (context) => InfoScreen()),
-              ),
-            ),
-            ListTile(
-              leading: Icon(Icons.settings),
-              title: Text("Impostazioni"),
-              onTap: () => Navigator.pop(context),
-            ),
-          ],
-        ),
-      ),
+
+    endDrawer: EndDrawerGlobale(),
 
       body: SingleChildScrollView(
         child: Padding(
@@ -263,34 +234,7 @@ class InquinamentoScreen extends StatelessWidget {
         ),
       ),
 
-      // Menu laterale
-      endDrawer: Drawer(
-        child: ListView(
-          children: [
-            DrawerHeader(
-              decoration: BoxDecoration(color: Colors.green),
-              child: Row(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Icon(Icons.eco, color: Colors.greenAccent, size: 28),
-                  Text("Dettagli",
-                    style: TextStyle(color: Colors.white, fontSize: 24)),
-                ],
-              ),
-            ),
-            ListTile(
-              leading: Icon(Icons.info),
-              title: Text("Info"),
-              onTap: () => Navigator.pop(context),
-            ),
-            ListTile(
-              leading: Icon(Icons.settings),
-              title: Text("Impostazioni"),
-              onTap: () => Navigator.pop(context),
-            ),
-          ],
-        ),
-      ),
+      endDrawer: EndDrawerGlobale(),
 
       //Elenco Parametri
       body: SingleChildScrollView( // per lo scorrimento
@@ -521,6 +465,44 @@ class InfoScreen extends StatelessWidget {
           Icon(iconData, color: color, size: 30),
           SizedBox(width: 8),
           Text(text, style: TextStyle(fontSize: 30, fontWeight: FontWeight.bold,)),
+        ],
+      ),
+    );
+  }
+}
+
+class EndDrawerGlobale extends StatelessWidget {
+  const EndDrawerGlobale({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Drawer(
+      child: ListView(
+        children: [
+          DrawerHeader(
+            decoration: BoxDecoration(color: Colors.green),
+            child: Row(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Icon(Icons.eco, color: Colors.greenAccent, size: 28),
+                Text("EcoWeather",
+                  style: TextStyle(color: Colors.white, fontSize: 24)),
+              ],
+            ),
+          ),
+          ListTile(
+            leading: Icon(Icons.info),
+            title: Text("Info"),
+            onTap: () => Navigator.push(
+              context,
+              MaterialPageRoute(builder: (context) => InfoScreen()),
+            ),
+          ),
+          ListTile(
+            leading: Icon(Icons.settings),
+            title: Text("Impostazioni"),
+            onTap: () => Navigator.pop(context),
+          ),
         ],
       ),
     );
