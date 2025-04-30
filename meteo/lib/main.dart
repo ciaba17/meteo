@@ -286,13 +286,13 @@ class InquinamentoScreen extends StatelessWidget {
 
               Text("EMISSIONI DI CO2",
                   style:
-                      TextStyle(fontSize: 35, fontWeight: FontWeight.bold, color: const Color.fromARGB(255, 255, 0, 0))
+                      TextStyle(fontSize: 8.w, fontWeight: FontWeight.bold, color: const Color.fromARGB(255, 255, 0, 0))
               ),
 
-              SizedBox(height: 20),
+              SizedBox(height: 5.w),
 
               SizedBox(
-                height: 350,
+                height: 60.w,
                 child: PieChart(
                   PieChartData(
                     sections: [
@@ -300,28 +300,28 @@ class InquinamentoScreen extends StatelessWidget {
                         value: 45,
                         color: Colors.red,
                         title: 'Trasporti\n45%',
-                        radius: 160,
+                        radius: 28.w,
                         titleStyle: TextStyle(fontSize: 14, fontWeight: FontWeight.bold, color: Colors.black),
                       ),
                       PieChartSectionData(
                         value: 30,
                         color: Colors.orange,
                         title: 'Industria\n30%',
-                        radius: 160,
+                        radius: 28.w,
                         titleStyle: TextStyle(fontSize: 14, fontWeight: FontWeight.bold, color: Colors.black),
                       ),
                       PieChartSectionData(
                         value: 15,
                         color: Colors.green,
                         title: 'Edifici\n15%',
-                        radius: 160,
+                        radius: 28.w,
                         titleStyle: TextStyle(fontSize: 14, fontWeight: FontWeight.bold, color: Colors.black),
                       ),
                       PieChartSectionData(
                         value: 10,
                         color: Colors.blue,
                         title: 'Agricoltura\n10%',
-                        radius: 160,
+                        radius: 28.w,
                         titleStyle: TextStyle(fontSize: 14, fontWeight: FontWeight.bold, color: Colors.black),
                       ),
                     ],
@@ -343,10 +343,10 @@ class InquinamentoScreen extends StatelessWidget {
       padding: const EdgeInsets.only(bottom: 6.0),
       child: Row(
         children: [
-          IconButton(onPressed: () => apriApprofondimento(context, testoSecondario), icon: Icon(Icons.info, size: 20, color: Colors.blue)),
-          Icon(iconData, color: color, size: 30),
-          SizedBox(width: 8),
-          Text(testoPrincipale, style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold,)),
+          IconButton(onPressed: () => apriApprofondimento(context, testoSecondario), icon: Icon(Icons.info, size: 4.w, color: Colors.blue)),
+          Icon(iconData, color: color, size: 7.w),
+          SizedBox(width: 2.w),
+          Text(testoPrincipale, style: TextStyle(fontSize: 4.w, fontWeight: FontWeight.bold,)),
         ],
       ),
     );
@@ -360,13 +360,13 @@ class InquinamentoScreen extends StatelessWidget {
           title: Text("Mini schermata"),
           titleTextStyle: TextStyle(
             fontWeight: FontWeight.bold,
-            fontSize: 25,
+            fontSize: 6.w,
             color: Colors.black,
           ),
           content: 
           Text(testoSecondario),
           contentTextStyle: TextStyle(
-            fontSize: 20,
+            fontSize: 4.w,
             color: Colors.black),
         );
       },
@@ -421,7 +421,7 @@ class InfoScreen extends StatelessWidget {
       backgroundColor: Colors.white,
 
       //Elenco Parametri
-      body: SingleChildScrollView( // per lo scorrimento
+      body: SingleChildScrollView( // Per lo scorrimento
         child: Center(
           child: Column(
             mainAxisAlignment: MainAxisAlignment.start,
@@ -490,9 +490,9 @@ class EndDrawerGlobale extends StatelessWidget {
             child: Row(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Icon(Icons.eco, color: Colors.greenAccent, size: 28),
+                Icon(Icons.eco, color: Colors.greenAccent, size: 7.w),
                 Text("EcoWeather",
-                  style: TextStyle(color: Colors.white, fontSize: 24)),
+                  style: TextStyle(color: Colors.white, fontSize: 6.w)),
               ],
             ),
           ),
