@@ -343,7 +343,7 @@ class InquinamentoScreen extends StatelessWidget {
       padding: const EdgeInsets.only(bottom: 6.0),
       child: Row(
         children: [
-          IconButton(onPressed: () => apriApprofondimento(context, testoSecondario), icon: Icon(Icons.info, size: 4.w, color: Colors.blue)),
+          IconButton(onPressed: () => apriApprofondimento(context, testoPrincipale, testoSecondario), icon: Icon(Icons.info, size: 4.w, color: Colors.blue)),
           Icon(iconData, color: color, size: 7.w),
           SizedBox(width: 2.w),
           Text(testoPrincipale, style: TextStyle(fontSize: 4.w, fontWeight: FontWeight.bold,)),
@@ -352,12 +352,12 @@ class InquinamentoScreen extends StatelessWidget {
     );
   }
   
-  apriApprofondimento(context, String testoSecondario) {
+  apriApprofondimento(context, String testoPrincipale, String testoSecondario) {
     showDialog(
       context: context,
       builder: (BuildContext context) {
         return AlertDialog(
-          title: Text("Mini schermata"),
+          title: Text(testoPrincipale),
           titleTextStyle: TextStyle(
             fontWeight: FontWeight.bold,
             fontSize: 6.w,
@@ -420,25 +420,24 @@ class InfoScreen extends StatelessWidget {
     return Scaffold(
       backgroundColor: Colors.white,
 
+      appBar: AppBar(
+        backgroundColor: Colors.transparent,
+        title: Row(
+          mainAxisAlignment: MainAxisAlignment.start,
+          children: [
+            Text("Info",
+            style: TextStyle(fontSize: 25, fontWeight: FontWeight.bold, color: Colors.grey)
+            ),
+          ],
+        ),
+      ),
+
       //Elenco Parametri
       body: SingleChildScrollView( // Per lo scorrimento
         child: Center(
           child: Column(
             mainAxisAlignment: MainAxisAlignment.start,
             children: [
-              SizedBox(height: 5),
-
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Icon(Icons.info, color: Colors.grey, size: 28),
-                  Text("Info",
-                      style:
-                          TextStyle(fontSize: 25, fontWeight: FontWeight.bold, color: Colors.grey)
-                  ),
-                ],
-              ),
-
               SizedBox(height: 25),
 
               Row(
@@ -483,6 +482,7 @@ class EndDrawerGlobale extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Drawer(
+      width: 50.h,
       child: ListView(
         children: [
           DrawerHeader(
