@@ -3,6 +3,7 @@ import 'dart:convert'; // per jsonDecode
 import 'package:http/http.dart' as http;
 import 'package:fl_chart/fl_chart.dart';// per i grafici
 import 'package:sizer/sizer.dart';
+import 'globals.dart' as globals;
 
 void main() {
   runApp(EcoWeatherApp());
@@ -70,15 +71,30 @@ class _HomeScreenState extends State<HomeScreen> {
                   children: [
                     Column(
                       children: [
-                        Text("Roma",
-                          style: TextStyle(fontSize: 10.w, fontWeight: FontWeight.bold)),
+                        Row(
+                          children: [
+                            TextButton(
+                              onPressed: () {
+                                mostraCambioCitta(context);
+                              },  
+                              child: Row(
+                                children: [
+                                Text(globals.cityName,
+                                  style: TextStyle(fontSize: 10.w, fontWeight: FontWeight.bold)),
+                                Icon(Icons.keyboard_arrow_down, size: 5.w, color: Colors.grey[700]),
+                              ],
+                            ),
+                          ),
+
+                          ],
+                        ),
                         Text("24 aprile",
                           style: TextStyle(fontSize: 4.5.w, color: Colors.grey[700])),
                         Text("20°",
                           style:TextStyle(fontSize:  14.w, fontWeight: FontWeight.bold)),
                       ],
                     ),
-                    Icon(Icons.wb_cloudy, size: 17.w, color: Colors.grey[700])
+                    Icon(Icons.wb_cloudy, size: 20.w, color: Colors.grey[700])
                   ],
                 ),
               ),
@@ -100,36 +116,41 @@ class _HomeScreenState extends State<HomeScreen> {
                 Center(
                   child: Column(
                     children: [
+                      SizedBox(height: 4.w),
                       Text("BILANCIO AMBIENTALE",
                         style: TextStyle(fontSize: 5.w, fontWeight: FontWeight.bold)),
-      
-                      SizedBox(height: 5.w),
+                      SizedBox(height: 2.w),
                 
                       // Faccina
-                      CircleAvatar(
-                      radius: 9.5.w,
-                      backgroundColor: Colors.green,
-                      child: Icon(Icons.sentiment_satisfied_alt_outlined,
-                          size: 15.w, color: Colors.black),
-                      ),
-                
-                        SizedBox(height: 4.w),
-                
-                        // Bottone APPROFONDISCI
-                        OutlinedButton(
-                          onPressed: () => mostraInquinamento(context),
-                          style: OutlinedButton.styleFrom(
-                            side: BorderSide(color: Colors.black, width: 0.4.w),
-                            padding: EdgeInsets.symmetric(horizontal: 5.w, vertical: 2.5.w),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          CircleAvatar(
+                          radius: 9.5.w,
+                          backgroundColor: Colors.green,
+                          child: Icon(Icons.sentiment_satisfied_alt_outlined,
+                              size: 15.w, color: Colors.black),
                           ),
-                          child : Text(
-                            "APPROFONDISCI",
-                            style: TextStyle(
-                              fontWeight: FontWeight.bold,
-                              fontSize: 3.5.w,
-                              color: Colors.black),
-                          )
-                        ),
+
+                          SizedBox(width: 4.w),
+                                        
+                          // Bottone APPROFONDISCI
+                          OutlinedButton(
+                            onPressed: () => mostraInquinamento(context),
+                            style: OutlinedButton.styleFrom(
+                              side: BorderSide(color: Colors.black, width: 0.4.w),
+                              padding: EdgeInsets.symmetric(horizontal: 5.w, vertical: 2.5.w),
+                            ),
+                            child : Text(
+                              "APPROFONDISCI",
+                              style: TextStyle(
+                                fontWeight: FontWeight.bold,
+                                fontSize: 3.5.w,
+                                color: Colors.black),
+                            )
+                          ),
+                        ],
+                      ),
                       ],
                     ),
                   ),
@@ -197,21 +218,118 @@ class _HomeScreenState extends State<HomeScreen> {
     );
   }
 
+  void mostraCambioCitta(BuildContext context) {
+  final TextEditingController controller = TextEditingController();
+  final List<String> cittaPredefinite = ['Roma', 'Milano', 'Firenze', 'Napoli', '  Pisa ', 'Pistoia', 'Venezia', '  Bari  '];
+
+  showModalBottomSheet(
+    context: context,
+    isScrollControlled: true,
+    shape: RoundedRectangleBorder(
+      borderRadius: BorderRadius.vertical(top: Radius.circular(20)),
+    ),
+    builder: (BuildContext context) {
+      return Padding(
+        padding: EdgeInsets.only(
+          bottom: MediaQuery.of(context).viewInsets.bottom,
+          left: 5.w,
+          right: 5.w,
+          top: 5.w,
+        ),
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            Icon(Icons.location_city, size: 10.w, color: Colors.green),
+            SizedBox(height: 3.w),
+            Text(
+              "Cambia città",
+              style: TextStyle(fontSize: 6.w, fontWeight: FontWeight.bold),
+            ),
+            SizedBox(height: 4.w),
+            TextField(
+              controller: controller,
+              decoration: InputDecoration(
+                hintText: "Inserisci il nome della città",
+                prefixIcon: Icon(Icons.search),
+                border: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(3.w),
+                ),
+              ),
+              autofocus: true,
+              textCapitalization: TextCapitalization.words,
+              onSubmitted: (_) => cambiaCitta(controller.text, context),
+            ),
+            SizedBox(height: 4.w),
+            ElevatedButton.icon(
+              onPressed: () => cambiaCitta(controller.text, context),
+              icon: Icon(Icons.check),
+              label: Text("Conferma", style: TextStyle(fontSize: 4.w)),
+              style: ElevatedButton.styleFrom(
+                padding: EdgeInsets.symmetric(horizontal: 10.w, vertical: 3.w),
+                backgroundColor: Colors.green[700],
+              ),
+            ),
+            SizedBox(height: 5.w),
+            Divider(),
+            Text("Oppure scegli una città:", style: TextStyle(fontSize: 4.w)),
+            SizedBox(height: 2.w),
+            Wrap(
+              spacing: 2.w,
+              children: cittaPredefinite.map((citta) {
+                return ActionChip(
+                  label: Text(citta),
+                  onPressed: () => cambiaCitta(citta, context),
+                  backgroundColor: Colors.green[100],
+                );
+              }).toList(),
+            ),
+            SizedBox(height: 5.w),
+          ],
+        ),
+      );
+    },
+  );
+}
+
+
+  void cambiaCitta(String value, BuildContext context) {
+    if (value.trim().isEmpty) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text("Inserisci una città valida")),
+      );
+      return;
+    }
+
+    setState(() {
+      globals.cityName = value.trim();
+    });
+
+    Navigator.of(context).pop();
+
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(
+        content: Text("Città cambiata in ${globals.cityName}"),
+        duration: Duration(seconds: 2),
+      ),
+    );
+  }
+
+
   // PARTE PER API, DA AGGIUNGERE LA KEY
   Future<double> fetchTemperature(String cityName) async {
-  final apiKey = 'LA_TUA_API_KEY'; // << qui metti la tua vera chiave
-  final url = 'https://api.openweathermap.org/data/2.5/weather?q=$cityName&appid=$apiKey&units=metric';
+    final apiKey = 'LA_TUA_API_KEY'; // << qui metti la tua vera chiave
+    final url = 'https://api.openweathermap.org/data/2.5/weather?q=$cityName&appid=$apiKey&units=metric';
 
-  final response = await http.get(Uri.parse(url));
+    final response = await http.get(Uri.parse(url));
 
-  if (response.statusCode == 200) {
-    final data = json.decode(response.body);
-    double temp = data['main']['temp'].toDouble();
-    return temp;
-  } else {
-    throw Exception('Errore nel caricamento dei dati meteo');
+    if (response.statusCode == 200) {
+      final data = json.decode(response.body);
+      double temp = data['main']['temp'].toDouble();
+      return temp;
+    } else {
+      throw Exception('Errore nel caricamento dei dati meteo');
+    }
   }
-}
 }
 
 
