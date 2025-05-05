@@ -332,83 +332,96 @@ class _HomeScreenState extends State<HomeScreen> {
   }
 }
 
-
 class InquinamentoScreen extends StatelessWidget {
   const InquinamentoScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
+    const days = ['Lun', 'Mar', 'Mer', 'Gio', 'Ven', 'Sab', 'Dom'];
+
     return Scaffold(
       backgroundColor: Colors.white,
-
-      // Appbar per logo e tasto menu
       appBar: AppBar(
-      // Logo EcoWeather
         backgroundColor: Colors.transparent,
         title: Row(
           children: [
             Icon(Icons.eco, color: Colors.green, size: 7.w),
             SizedBox(width: 2.w),
-            Text("EcoWeather",
-                style: TextStyle(
-                    fontSize: 6.w,
-                    fontWeight: FontWeight.bold,
-                    color: Colors.green[800]))
+            Text(
+              "EcoWeather",
+              style: TextStyle(
+                fontSize: 6.w,
+                fontWeight: FontWeight.bold,
+                color: Colors.green[800],
+              ),
+            ),
           ],
         ),
       ),
-
       endDrawer: EndDrawerGlobale(),
-
-      //Elenco Parametri
-      body: SingleChildScrollView( // per lo scorrimento
-        child: Center(
+      body: SingleChildScrollView(
+        child: Padding(
+          padding: EdgeInsets.all(5.w),
           child: Column(
-            mainAxisAlignment: MainAxisAlignment.start,
+            crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               SizedBox(height: 1.2.w),
-
-              Text("QUALITÀ DELL'ARIA",
-                  style:
-                      TextStyle(fontSize: 8.w, fontWeight: FontWeight.bold, color: const Color.fromARGB(255, 0, 100, 255))
+              Text(
+                "QUALITÀ DELL'ARIA",
+                style: TextStyle(
+                  fontSize: 8.w,
+                  fontWeight: FontWeight.bold,
+                  color: Color.fromARGB(255, 0, 100, 255),
+                ),
               ),
-
               SizedBox(height: 6.w),
-
               Row(
-                mainAxisAlignment: MainAxisAlignment.spaceAround,
+                crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      infoBullet("AQI: 85 ", Icons.speed, Colors.orange, "L’Indice di Qualità dell’Aria (AQI) valuta quanto l’aria è salubre, combinando diversi inquinanti in un unico valore.", context),
-                      infoBullet("PM 2.5: 35µg/m³ ", Icons.blur_on, Colors.redAccent, "Micropolveri con diametro inferiore a 2.5 µm: penetrano nei polmoni e possono entrare nel sangue, causando seri danni alla salute.", context),
-                      infoBullet("PM 10: 60µg/m³ ", Icons.blur_on, Colors.deepOrange, "Particelle sospese con diametro inferiore a 10 µm: possono essere inalate e causare problemi respiratori e infiammazioni.", context),
-                      infoBullet("NO2: 45µg/m³ ", Icons.science, Colors.amber, "Il biossido di azoto è un gas irritante prodotto soprattutto dai veicoli a motore e può peggiorare l’asma e altre malattie respiratorie.", context),
-                    ],
+                  Expanded(
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        infoBullet("AQI: 85", Icons.speed, Colors.orange,
+                            "L’AQI valuta quanto l’aria è salubre...", context),
+                        infoBullet("PM 2.5: 35 µg/m³", Icons.blur_on,
+                            Colors.redAccent, "Micropolveri < 2.5 µm...", context),
+                        infoBullet("PM 10: 60 µg/m³", Icons.blur_on,
+                            Colors.deepOrange, "Particelle < 10 µm...", context),
+                        infoBullet("NO₂: 45 µg/m³", Icons.science, Colors.amber,
+                            "Biossido di azoto irritante...", context),
+                      ],
+                    ),
                   ),
-
-                  Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      infoBullet("O3: 70µg/m³ ", Icons.cloud, Colors.lightBlue, "L’ozono troposferico si forma nell’atmosfera e può causare irritazioni a occhi e polmoni, soprattutto nelle giornate calde e soleggiate.", context),
-                      infoBullet("CO: 0.7 mg/m³ ", Icons.local_fire_department, Colors.grey, "Il monossido di carbonio è un gas inodore e pericoloso prodotto dalla combustione incompleta, che riduce l’ossigeno trasportato nel sangue.", context),
-                      infoBullet("SO2: 10µg/m³ ", Icons.science, Colors.purple, "Il biossido di zolfo proviene soprattutto da centrali a carbone e attività industriali, ed è dannoso per il sistema respiratorio.", context),
-                      infoBullet("NH3: 15µg/m³ ", Icons.science, Colors.teal, "L’ammoniaca è rilasciata principalmente dall’agricoltura e può contribuire alla formazione di particolato fine nell’aria.", context),
-                    ],
+                  SizedBox(width: 4.w),
+                  Expanded(
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        infoBullet("O₃: 70 µg/m³", Icons.cloud, Colors.lightBlue,
+                            "Ozono troposferico...", context),
+                        infoBullet("CO: 0.7 mg/m³", Icons.local_fire_department,
+                            Colors.grey, "Monossido di carbonio...", context),
+                        infoBullet("SO₂: 10 µg/m³", Icons.science, Colors.purple,
+                            "Biossido di zolfo...", context),
+                        infoBullet("NH₃: 15 µg/m³", Icons.science, Colors.teal,
+                            "Ammoniaca agricola...", context),
+                      ],
+                    ),
                   ),
                 ],
               ),
 
               SizedBox(height: 10.w),
-
-              Text("EMISSIONI DI CO2",
-                  style:
-                      TextStyle(fontSize: 8.w, fontWeight: FontWeight.bold, color: const Color.fromARGB(255, 255, 0, 0))
+              Text(
+                "EMISSIONI DI CO₂",
+                style: TextStyle(
+                  fontSize: 8.w,
+                  fontWeight: FontWeight.bold,
+                  color: Color.fromARGB(255, 255, 0, 0),
+                ),
               ),
-
               SizedBox(height: 5.w),
-
               SizedBox(
                 height: 60.w,
                 child: PieChart(
@@ -419,36 +432,140 @@ class InquinamentoScreen extends StatelessWidget {
                         color: Colors.red,
                         title: 'Trasporti\n45%',
                         radius: 28.w,
-                        titleStyle: TextStyle(fontSize: 14, fontWeight: FontWeight.bold, color: Colors.black),
+                        titleStyle: TextStyle(
+                          fontSize: 14,
+                          fontWeight: FontWeight.bold,
+                          color: Colors.black,
+                        ),
                       ),
                       PieChartSectionData(
                         value: 30,
                         color: Colors.orange,
                         title: 'Industria\n30%',
                         radius: 28.w,
-                        titleStyle: TextStyle(fontSize: 14, fontWeight: FontWeight.bold, color: Colors.black),
+                        titleStyle: TextStyle(
+                          fontSize: 14,
+                          fontWeight: FontWeight.bold,
+                          color: Colors.black,
+                        ),
                       ),
                       PieChartSectionData(
                         value: 15,
                         color: Colors.green,
                         title: 'Edifici\n15%',
                         radius: 28.w,
-                        titleStyle: TextStyle(fontSize: 14, fontWeight: FontWeight.bold, color: Colors.black),
+                        titleStyle: TextStyle(
+                          fontSize: 14,
+                          fontWeight: FontWeight.bold,
+                          color: Colors.black,
+                        ),
                       ),
                       PieChartSectionData(
                         value: 10,
                         color: Colors.blue,
                         title: 'Agricoltura\n10%',
                         radius: 28.w,
-                        titleStyle: TextStyle(fontSize: 14, fontWeight: FontWeight.bold, color: Colors.black),
+                        titleStyle: TextStyle(
+                          fontSize: 14,
+                          fontWeight: FontWeight.bold,
+                          color: Colors.black,
+                        ),
                       ),
                     ],
-                    sectionsSpace: 0, //distanza tra gli spicchi
-                    centerSpaceRadius: 0, //vuoto nel centro
+                    sectionsSpace: 0,
+                    centerSpaceRadius: 0,
                   ),
                 ),
               ),
 
+              SizedBox(height: 8.w),
+              Center(
+                child: Text(
+                  "GRAFICI TEMPERATURA",
+                  style: TextStyle(
+                    fontSize: 8.w,
+                    fontWeight: FontWeight.bold,
+                    color: Colors.teal[700],
+                  ),
+                ),
+              ),
+              SizedBox(height: 3.w),
+              Container(
+                padding: EdgeInsets.symmetric(horizontal: 5.w),
+                height: 40.h, // Altezza responsive
+                child: LineChart(
+                  LineChartData(
+                    minX: 0,
+                    maxX: 6,
+                    minY: 10,
+                    maxY: 25,
+                    lineBarsData: [
+                      LineChartBarData(
+                        isCurved: true,
+                        barWidth: 3,
+                        dotData: FlDotData(show: true),
+                        spots: [
+                          FlSpot(0, 14),
+                          FlSpot(1, 16),
+                          FlSpot(2, 18),
+                          FlSpot(3, 19),
+                          FlSpot(4, 21),
+                          FlSpot(5, 20),
+                          FlSpot(6, 22),
+                        ],
+                        color: Colors.deepOrange,
+                      ),
+                    ],
+                    titlesData: FlTitlesData(
+                      bottomTitles: AxisTitles(
+                        sideTitles: SideTitles(
+                          showTitles: true,
+                          interval: 1,
+                          reservedSize: 8.w,
+                          getTitlesWidget: (value, meta) {
+                            final i = value.toInt();
+                            if (i < 0 || i >= days.length) return const SizedBox();
+                            return Text(
+                              days[i],
+                              style: TextStyle(fontSize: 4.w),
+                              textAlign: TextAlign.center,
+                            );
+                          },
+                        ),
+                      ),
+                      leftTitles: AxisTitles(
+                        sideTitles: SideTitles(
+                          showTitles: true,
+                          interval: 2,
+                          reservedSize: 12.w,
+                          getTitlesWidget: (value, meta) {
+                            return Center(
+                              child: Text(
+                                '${value.toInt()}°',
+                                style: TextStyle(fontSize: 4.w),
+                                textAlign: TextAlign.center,
+                              ),
+                            );
+                          },
+                        ),
+                      ),
+                      topTitles: AxisTitles(sideTitles: SideTitles(showTitles: false)),
+                      rightTitles: AxisTitles(sideTitles: SideTitles(showTitles: false)),
+                    ),
+                    gridData: FlGridData(
+                      show: true,
+                      horizontalInterval: 2,
+                    ),
+                    borderData: FlBorderData(
+                      show: true,
+                      border: Border.all(
+                        color: Colors.grey,
+                        width: 0.5.w,
+                      ),
+                    ),
+                  ),
+                ),
+              ),
             ],
           ),
         ),
@@ -456,42 +573,48 @@ class InquinamentoScreen extends StatelessWidget {
     );
   }
 
-  Widget infoBullet(String testoPrincipale, IconData iconData, Color color, String testoSecondario,context) {
+  Widget infoBullet(
+    String label,
+    IconData iconData,
+    Color color,
+    String description,
+    BuildContext context,
+  ) {
     return Padding(
-      padding: const EdgeInsets.only(bottom: 6.0),
+      padding: EdgeInsets.only(bottom: 6.0),
       child: Row(
         children: [
-          IconButton(onPressed: () => apriApprofondimento(context, testoPrincipale, testoSecondario), icon: Icon(Icons.info, size: 4.w, color: Colors.blue)),
+          IconButton(
+            onPressed: () => apriApprofondimento(context, label, description),
+            icon: Icon(Icons.info, size: 4.w, color: Colors.blue),
+          ),
           Icon(iconData, color: color, size: 7.w),
           SizedBox(width: 2.w),
-          Text(testoPrincipale, style: TextStyle(fontSize: 4.w, fontWeight: FontWeight.bold,)),
+          Expanded(
+            child: Text(
+              label,
+              style: TextStyle(fontSize: 4.w, fontWeight: FontWeight.bold),
+            ),
+          ),
         ],
       ),
     );
   }
-  
-  apriApprofondimento(context, String testoPrincipale, String testoSecondario) {
+
+  void apriApprofondimento(
+    BuildContext context,
+    String title,
+    String content,
+  ) {
     showDialog(
       context: context,
-      builder: (BuildContext context) {
-        return AlertDialog(
-          title: Text(testoPrincipale),
-          titleTextStyle: TextStyle(
-            fontWeight: FontWeight.bold,
-            fontSize: 6.w,
-            color: Colors.black,
-          ),
-          content: 
-          Text(testoSecondario),
-          contentTextStyle: TextStyle(
-            fontSize: 4.w,
-            color: Colors.black),
-        );
-      },
+      builder: (_) => AlertDialog(
+        title: Text(title, style: TextStyle(fontWeight: FontWeight.bold, fontSize: 6.w)),
+        content: Text(content, style: TextStyle(fontSize: 4.w)),
+      ),
     );
   }
 }
-
 
 class DettagliMeteoScreen extends StatelessWidget {
   const DettagliMeteoScreen({super.key});
@@ -499,35 +622,129 @@ class DettagliMeteoScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.white,
       appBar: AppBar(
-        title: Text("Dettagli"),
-      ),
-      body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
+        backgroundColor: Colors.transparent,
+        title: Row(
           children: [
-            infoBullet("Dettaglio Meteo", Icons.check, Colors.green),
-
+            Icon(Icons.eco, color: Colors.green, size: 7.w),
+            SizedBox(width: 2.w),
+            Text(
+              "EcoWeather",
+              style: TextStyle(
+                fontSize: 6.w,
+                fontWeight: FontWeight.bold,
+                color: Colors.green[800],
+              ),
+            ),
           ],
+        ),
+      ),
+      endDrawer: EndDrawerGlobale(),
+      body: SingleChildScrollView(
+        child: Padding(
+          padding: EdgeInsets.all(5.w),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Row(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Container(
+                    width: 30.w,
+                    alignment: Alignment.center,
+                    child: Icon(
+                      Icons.wb_sunny,
+                      size: 20.w,
+                      color: Colors.orange,
+                    ),
+                  ),
+                  SizedBox(width: 4.w),
+                  Expanded(
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          "24 aprile · Roma",
+                          style: TextStyle(
+                            fontSize: 4.5.w,
+                            color: Colors.grey[700],
+                          ),
+                        ),
+                        SizedBox(height: 1.w),
+                        Text(
+                          "SOLEGGIATO",
+                          style: TextStyle(
+                            fontSize: 7.w,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                        SizedBox(height: 1.w),
+                        Text(
+                          "25°C",
+                          style: TextStyle(
+                            fontSize: 10.w,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                        SizedBox(height: 0.5.w),
+                        Text(
+                          "Percepiti: 27°C",
+                          style: TextStyle(
+                            fontSize: 4.w,
+                            color: Colors.grey[700],
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                ],
+              ),
+              SizedBox(height: 5.w),
+              Divider(),
+              SizedBox(height: 3.w),
+              infoRow("Vento", "10 km/h Nord", Icons.air, Colors.blue),
+              infoRow("Umidità", "60%", Icons.water_drop, Colors.lightBlue),
+              infoRow("Pressione", "1015 hPa", Icons.speed, Colors.orange),
+              infoRow("Indice UV", "5", Icons.wb_sunny, Colors.deepOrange),
+              infoRow("Visibilità", "10 km", Icons.visibility, Colors.grey),
+              infoRow("Precipitazioni", "0 mm", Icons.grain, Colors.indigo),
+              infoRow("Copertura nuvolosa", "20%", Icons.cloud, Colors.blueGrey),
+              infoRow("Punto di rugiada", "15°C", Icons.ac_unit, Colors.cyan),
+              infoRow("Qualità dell’aria", "AQI 42", Icons.air_outlined, Colors.green),
+              infoRow("Livello di polline", "Medio", Icons.local_florist, Colors.purple),
+            ],
+          ),
         ),
       ),
     );
   }
 
-
-  Widget infoBullet(String text, IconData iconData, Color color) {
+  Widget infoRow(String label, String valore, IconData iconData, Color iconColor) {
     return Padding(
-      padding: const EdgeInsets.only(bottom: 6.0),
+      padding: EdgeInsets.symmetric(vertical: 2.w),
       child: Row(
         children: [
-          Icon(iconData, color: color, size: 30),
-          SizedBox(width: 8),
-          Text(text, style: TextStyle(fontSize: 30, fontWeight: FontWeight.bold,)),
+          Icon(iconData, size: 6.w, color: iconColor),
+          SizedBox(width: 3.w),
+          Text(
+            "$label:",
+            style: TextStyle(
+              fontSize: 4.w,
+              fontWeight: FontWeight.bold,
+            ),
+          ),
+          SizedBox(width: 2.w),
+          Expanded(
+            child: Text(
+              valore,
+              style: TextStyle(fontSize: 4.w),
+            ),
+          ),
         ],
       ),
     );
   }
-
 }
 
 class InfoScreen extends StatelessWidget {
