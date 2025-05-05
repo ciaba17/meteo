@@ -17,6 +17,7 @@ class EcoWeatherApp extends StatelessWidget {
     return Sizer(
       builder: (context, orientation, deviceType) {
         return MaterialApp(
+          debugShowCheckedModeBanner: false, // Disabilita il banner di debug
           home: HomeScreen(),
         );
       },
@@ -55,7 +56,7 @@ class _HomeScreenState extends State<HomeScreen> {
         ),
       ),
 
-    endDrawer: EndDrawerGlobale(),
+      endDrawer: EndDrawerGlobale(),
 
       body: SingleChildScrollView(
         child: Padding(
@@ -70,6 +71,7 @@ class _HomeScreenState extends State<HomeScreen> {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Row(
                           children: [
@@ -79,19 +81,22 @@ class _HomeScreenState extends State<HomeScreen> {
                               },  
                               child: Row(
                                 children: [
-                                Text(globals.cityName,
+                                Text(globals.nomeCitta,
                                   style: TextStyle(fontSize: 10.w, fontWeight: FontWeight.bold)),
                                 Icon(Icons.keyboard_arrow_down, size: 5.w, color: Colors.grey[700]),
                               ],
                             ),
                           ),
-
                           ],
                         ),
-                        Text("24 aprile",
-                          style: TextStyle(fontSize: 4.5.w, color: Colors.grey[700])),
-                        Text("20°",
-                          style:TextStyle(fontSize:  14.w, fontWeight: FontWeight.bold)),
+                        Column(
+                          children: [
+                            Text(globals.data,
+                              style: TextStyle(fontSize: 4.5.w, color: Colors.grey[700])),
+                            Text("  20°",
+                              style:TextStyle(fontSize:  14.w, fontWeight: FontWeight.bold)),
+                          ],
+                        ),
                       ],
                     ),
                     Icon(Icons.wb_cloudy, size: 20.w, color: Colors.grey[700])
@@ -301,14 +306,14 @@ class _HomeScreenState extends State<HomeScreen> {
     }
 
     setState(() {
-      globals.cityName = value.trim();
+      globals.nomeCitta = value.trim();
     });
 
     Navigator.of(context).pop();
 
     ScaffoldMessenger.of(context).showSnackBar(
       SnackBar(
-        content: Text("Città cambiata in ${globals.cityName}"),
+        content: Text("Città cambiata in ${globals.nomeCitta}"),
         duration: Duration(seconds: 2),
       ),
     );
@@ -316,9 +321,9 @@ class _HomeScreenState extends State<HomeScreen> {
 
 
   // PARTE PER API, DA AGGIUNGERE LA KEY
-  Future<double> fetchTemperature(String cityName) async {
+  Future<double> fetchTemperature(String nomeCitta) async {
     final apiKey = 'LA_TUA_API_KEY'; // << qui metti la tua vera chiave
-    final url = 'https://api.openweathermap.org/data/2.5/weather?q=$cityName&appid=$apiKey&units=metric';
+    final url = 'https://api.openweathermap.org/data/2.5/weather?q=$nomeCitta&appid=$apiKey&units=metric';
 
     final response = await http.get(Uri.parse(url));
 
@@ -382,14 +387,10 @@ class InquinamentoScreen extends StatelessWidget {
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        infoBullet("AQI: 85", Icons.speed, Colors.orange,
-                            "L’AQI valuta quanto l’aria è salubre...", context),
-                        infoBullet("PM 2.5: 35 µg/m³", Icons.blur_on,
-                            Colors.redAccent, "Micropolveri < 2.5 µm...", context),
-                        infoBullet("PM 10: 60 µg/m³", Icons.blur_on,
-                            Colors.deepOrange, "Particelle < 10 µm...", context),
-                        infoBullet("NO₂: 45 µg/m³", Icons.science, Colors.amber,
-                            "Biossido di azoto irritante...", context),
+                        infoBullet("AQI: 85 ", Icons.speed, Colors.orange, "L’Indice di Qualità dell’Aria (AQI) valuta quanto l’aria è salubre, combinando diversi inquinanti in un unico valore.", context),
+                        infoBullet("PM 2.5: 35µg/m³ ", Icons.blur_on, Colors.redAccent, "Micropolveri con diametro inferiore a 2.5 µm: penetrano nei polmoni e possono entrare nel sangue, causando seri danni alla salute.", context),
+                        infoBullet("PM 10: 60µg/m³ ", Icons.blur_on, Colors.deepOrange, "Particelle sospese con diametro inferiore a 10 µm: possono essere inalate e causare problemi respiratori e infiammazioni.", context),
+                        infoBullet("NO2: 45µg/m³ ", Icons.science, Colors.amber, "Il biossido di azoto è un gas irritante prodotto soprattutto dai veicoli a motore e può peggiorare l’asma e altre malattie respiratorie.", context),
                       ],
                     ),
                   ),
@@ -398,15 +399,11 @@ class InquinamentoScreen extends StatelessWidget {
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        infoBullet("O₃: 70 µg/m³", Icons.cloud, Colors.lightBlue,
-                            "Ozono troposferico...", context),
-                        infoBullet("CO: 0.7 mg/m³", Icons.local_fire_department,
-                            Colors.grey, "Monossido di carbonio...", context),
-                        infoBullet("SO₂: 10 µg/m³", Icons.science, Colors.purple,
-                            "Biossido di zolfo...", context),
-                        infoBullet("NH₃: 15 µg/m³", Icons.science, Colors.teal,
-                            "Ammoniaca agricola...", context),
-                      ],
+                        infoBullet("O3: 70µg/m³ ", Icons.cloud, Colors.lightBlue, "L’ozono troposferico si forma nell’atmosfera e può causare irritazioni a occhi e polmoni, soprattutto nelle giornate calde e soleggiate.", context),
+                        infoBullet("CO: 0.7 mg/m³ ", Icons.local_fire_department, Colors.grey, "Il monossido di carbonio è un gas inodore e pericoloso prodotto dalla combustione incompleta, che riduce l’ossigeno trasportato nel sangue.", context),
+                        infoBullet("SO2: 10µg/m³ ", Icons.science, Colors.purple, "Il biossido di zolfo proviene soprattutto da centrali a carbone e attività industriali, ed è dannoso per il sistema respiratorio.", context),
+                        infoBullet("NH3: 15µg/m³ ", Icons.science, Colors.teal, "L’ammoniaca è rilasciata principalmente dall’agricoltura e può contribuire alla formazione di particolato fine nell’aria.", context),
+                      ]
                     ),
                   ),
                 ],
@@ -665,7 +662,7 @@ class DettagliMeteoScreen extends StatelessWidget {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Text(
-                          "24 aprile · Roma",
+                          globals.data + globals.nomeCitta,
                           style: TextStyle(
                             fontSize: 4.5.w,
                             color: Colors.grey[700],
