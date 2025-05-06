@@ -267,10 +267,9 @@ class _HomeScreenState extends State<HomeScreen> {
             SizedBox(height: 4.w),
             ElevatedButton.icon(
               onPressed: () => cambiaCitta(controller.text, context),
-              icon: Icon(Icons.check),
-              label: Text("Conferma", style: TextStyle(fontSize: 4.w)),
+              icon: Icon(Icons.check, color: Colors.black,),
+              label: Text("Conferma", style: TextStyle(fontSize: 4.w, color: Colors.black)),
               style: ElevatedButton.styleFrom(
-                padding: EdgeInsets.symmetric(horizontal: 10.w, vertical: 3.w),
                 backgroundColor: Colors.green[700],
               ),
             ),
@@ -401,7 +400,9 @@ class InquinamentoScreen extends StatelessWidget {
                       children: [
                         infoBullet("O3: 70µg/m³ ", Icons.cloud, Colors.lightBlue, "L’ozono troposferico si forma nell’atmosfera e può causare irritazioni a occhi e polmoni, soprattutto nelle giornate calde e soleggiate.", context),
                         infoBullet("CO: 0.7 mg/m³ ", Icons.local_fire_department, Colors.grey, "Il monossido di carbonio è un gas inodore e pericoloso prodotto dalla combustione incompleta, che riduce l’ossigeno trasportato nel sangue.", context),
+                        SizedBox(height: 0.5.w),
                         infoBullet("SO2: 10µg/m³ ", Icons.science, Colors.purple, "Il biossido di zolfo proviene soprattutto da centrali a carbone e attività industriali, ed è dannoso per il sistema respiratorio.", context),
+                        SizedBox(height: 4.5.w),
                         infoBullet("NH3: 15µg/m³ ", Icons.science, Colors.teal, "L’ammoniaca è rilasciata principalmente dall’agricoltura e può contribuire alla formazione di particolato fine nell’aria.", context),
                       ]
                     ),
