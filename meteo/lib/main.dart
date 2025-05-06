@@ -387,9 +387,9 @@ class InquinamentoScreen extends StatelessWidget {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         infoBullet("AQI: 85 ", Icons.speed, Colors.orange, "L’Indice di Qualità dell’Aria (AQI) valuta quanto l’aria è salubre, combinando diversi inquinanti in un unico valore.", context),
-                        infoBullet("PM 2.5: 35µg/m³ ", Icons.blur_on, Colors.redAccent, "Micropolveri con diametro inferiore a 2.5 µm: penetrano nei polmoni e possono entrare nel sangue, causando seri danni alla salute.", context),
-                        infoBullet("PM 10: 60µg/m³ ", Icons.blur_on, Colors.deepOrange, "Particelle sospese con diametro inferiore a 10 µm: possono essere inalate e causare problemi respiratori e infiammazioni.", context),
-                        infoBullet("NO2: 45µg/m³ ", Icons.science, Colors.amber, "Il biossido di azoto è un gas irritante prodotto soprattutto dai veicoli a motore e può peggiorare l’asma e altre malattie respiratorie.", context),
+                        infoBullet("PM 2.5: 35µg/m³ ", Icons.blur_on, Colors.red, "Micropolveri con diametro inferiore a 2.5 µm: penetrano nei polmoni e possono entrare nel sangue, causando seri danni alla salute.", context),
+                        infoBullet("PM 10: 60µg/m³ ", Icons.blur_on, Colors.orange, "Particelle sospese con diametro inferiore a 10 µm: possono essere inalate e causare problemi respiratori e infiammazioni.", context),
+                        infoBullet("NO2: 45µg/m³ ", Icons.science, Colors.green, "Il biossido di azoto è un gas irritante prodotto soprattutto dai veicoli a motore e può peggiorare l’asma e altre malattie respiratorie.", context),
                       ],
                     ),
                   ),
@@ -398,12 +398,12 @@ class InquinamentoScreen extends StatelessWidget {
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        infoBullet("O3: 70µg/m³ ", Icons.cloud, Colors.lightBlue, "L’ozono troposferico si forma nell’atmosfera e può causare irritazioni a occhi e polmoni, soprattutto nelle giornate calde e soleggiate.", context),
-                        infoBullet("CO: 0.7 mg/m³ ", Icons.local_fire_department, Colors.grey, "Il monossido di carbonio è un gas inodore e pericoloso prodotto dalla combustione incompleta, che riduce l’ossigeno trasportato nel sangue.", context),
-                        SizedBox(height: 0.5.w),
-                        infoBullet("SO2: 10µg/m³ ", Icons.science, Colors.purple, "Il biossido di zolfo proviene soprattutto da centrali a carbone e attività industriali, ed è dannoso per il sistema respiratorio.", context),
-                        SizedBox(height: 4.5.w),
-                        infoBullet("NH3: 15µg/m³ ", Icons.science, Colors.teal, "L’ammoniaca è rilasciata principalmente dall’agricoltura e può contribuire alla formazione di particolato fine nell’aria.", context),
+                        infoBullet("O3: 70µg/m³ ", Icons.cloud, Colors.green, "L’ozono troposferico si forma nell’atmosfera e può causare irritazioni a occhi e polmoni, soprattutto nelle giornate calde e soleggiate.", context),
+                        infoBullet("CO: 0.7 mg/m³ ", Icons.local_fire_department, Colors.orange, "Il monossido di carbonio è un gas inodore e pericoloso prodotto dalla combustione incompleta, che riduce l’ossigeno trasportato nel sangue.", context),
+                        //SizedBox(height: 0.5.w),
+                        infoBullet("SO2: 10µg/m³‎ ‎ ", Icons.science, Colors.green, "Il biossido di zolfo proviene soprattutto da centrali a carbone e attività industriali, ed è dannoso per il sistema respiratorio.", context),
+                        //SizedBox(height: 4.5.w),
+                        infoBullet("NH3: 15µg/m³ ", Icons.science, Colors.red, "L’ammoniaca è rilasciata principalmente dall’agricoltura e può contribuire alla formazione di particolato fine nell’aria.", context),
                       ]
                     ),
                   ),
@@ -586,7 +586,12 @@ class InquinamentoScreen extends StatelessWidget {
             onPressed: () => apriApprofondimento(context, label, description),
             icon: Icon(Icons.info, size: 4.w, color: Colors.blue),
           ),
-          Icon(iconData, color: color, size: 7.w),
+          CircleAvatar(
+            radius: 3.5.w,
+            backgroundColor: color,
+            child: Icon(iconData,
+            size: 6.w, color: Colors.black),
+          ),
           SizedBox(width: 2.w),
           Expanded(
             child: Text(
