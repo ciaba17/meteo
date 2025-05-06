@@ -341,7 +341,6 @@ class InquinamentoScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    const days = ['Lun', 'Mar', 'Mer', 'Gio', 'Ven', 'Sab', 'Dom'];
 
     return Scaffold(
       backgroundColor: Colors.white,
@@ -477,93 +476,7 @@ class InquinamentoScreen extends StatelessWidget {
               ),
 
               SizedBox(height: 8.w),
-              Center(
-                child: Text(
-                  "GRAFICI TEMPERATURA",
-                  style: TextStyle(
-                    fontSize: 8.w,
-                    fontWeight: FontWeight.bold,
-                    color: Colors.teal[700],
-                  ),
-                ),
-              ),
-              SizedBox(height: 3.w),
-              Container(
-                padding: EdgeInsets.symmetric(horizontal: 5.w),
-                height: 40.h, // Altezza responsive
-                child: LineChart(
-                  LineChartData(
-                    minX: 0,
-                    maxX: 6,
-                    minY: 10,
-                    maxY: 25,
-                    lineBarsData: [
-                      LineChartBarData(
-                        isCurved: true,
-                        barWidth: 3,
-                        dotData: FlDotData(show: true),
-                        spots: [
-                          FlSpot(0, 14),
-                          FlSpot(1, 16),
-                          FlSpot(2, 18),
-                          FlSpot(3, 19),
-                          FlSpot(4, 21),
-                          FlSpot(5, 20),
-                          FlSpot(6, 22),
-                        ],
-                        color: Colors.deepOrange,
-                      ),
-                    ],
-                    titlesData: FlTitlesData(
-                      bottomTitles: AxisTitles(
-                        sideTitles: SideTitles(
-                          showTitles: true,
-                          interval: 1,
-                          reservedSize: 8.w,
-                          getTitlesWidget: (value, meta) {
-                            final i = value.toInt();
-                            if (i < 0 || i >= days.length) return const SizedBox();
-                            return Text(
-                              days[i],
-                              style: TextStyle(fontSize: 4.w),
-                              textAlign: TextAlign.center,
-                            );
-                          },
-                        ),
-                      ),
-                      leftTitles: AxisTitles(
-                        sideTitles: SideTitles(
-                          showTitles: true,
-                          interval: 2,
-                          reservedSize: 12.w,
-                          getTitlesWidget: (value, meta) {
-                            return Center(
-                              child: Text(
-                                '${value.toInt()}°',
-                                style: TextStyle(fontSize: 4.w),
-                                textAlign: TextAlign.center,
-                              ),
-                            );
-                          },
-                        ),
-                      ),
-                      topTitles: AxisTitles(sideTitles: SideTitles(showTitles: false)),
-                      rightTitles: AxisTitles(sideTitles: SideTitles(showTitles: false)),
-                    ),
-                    gridData: FlGridData(
-                      show: true,
-                      horizontalInterval: 2,
-                    ),
-                    borderData: FlBorderData(
-                      show: true,
-                      border: Border.all(
-                        color: Colors.grey,
-                        width: 0.5.w,
-                      ),
-                    ),
-                  ),
-                ),
-              ),
+              
             ],
           ),
         ),
@@ -621,7 +534,7 @@ class InquinamentoScreen extends StatelessWidget {
 
 class DettagliMeteoScreen extends StatelessWidget {
   const DettagliMeteoScreen({super.key});
-
+  static const days = ['Lun', 'Mar', 'Mer', 'Gio', 'Ven', 'Sab', 'Dom'];
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -716,6 +629,93 @@ class DettagliMeteoScreen extends StatelessWidget {
               infoRow("Punto di rugiada", "15°C", Icons.ac_unit, Colors.cyan),
               infoRow("Qualità dell’aria", "AQI 42", Icons.air_outlined, Colors.green),
               infoRow("Livello di polline", "Medio", Icons.local_florist, Colors.purple),
+              Center(
+                child: Text(
+                  "GRAFICI TEMPERATURA",
+                  style: TextStyle(
+                    fontSize: 8.w,
+                    fontWeight: FontWeight.bold,
+                    color: Colors.teal[700],
+                  ),
+                ),
+              ),
+              SizedBox(height: 3.w),
+              Container(
+                padding: EdgeInsets.symmetric(horizontal: 5.w),
+                height: 40.h, // Altezza responsive
+                child: LineChart(
+                  LineChartData(
+                    minX: 0,
+                    maxX: 6,
+                    minY: 10,
+                    maxY: 24,
+                    lineBarsData: [
+                      LineChartBarData(
+                        isCurved: true,
+                        barWidth: 3,
+                        dotData: FlDotData(show: true),
+                        spots: [
+                          FlSpot(0, 14),
+                          FlSpot(1, 16),
+                          FlSpot(2, 18),
+                          FlSpot(3, 19),
+                          FlSpot(4, 21),
+                          FlSpot(5, 20),
+                          FlSpot(6, 22),
+                        ],
+                        color: Colors.deepOrange,
+                      ),
+                    ],
+                    titlesData: FlTitlesData(
+                      bottomTitles: AxisTitles(
+                        sideTitles: SideTitles(
+                          showTitles: true,
+                          interval: 1,
+                          reservedSize: 8.w,
+                          getTitlesWidget: (value, meta) {
+                            final i = value.toInt();
+                            if (i < 0 || i >= days.length) return const SizedBox();
+                            return Text(
+                              days[i],
+                              style: TextStyle(fontSize: 4.w),
+                              textAlign: TextAlign.center,
+                            );
+                          },
+                        ),
+                      ),
+                      leftTitles: AxisTitles(
+                        sideTitles: SideTitles(
+                          showTitles: true,
+                          interval: 2,
+                          reservedSize: 12.w,
+                          getTitlesWidget: (value, meta) {
+                            return Center(
+                              child: Text(
+                                '${value.toInt()}°',
+                                style: TextStyle(fontSize: 4.w),
+                                textAlign: TextAlign.center,
+                              ),
+                            );
+                          },
+                        ),
+                      ),
+                      topTitles: AxisTitles(sideTitles: SideTitles(showTitles: false)),
+                      rightTitles: AxisTitles(sideTitles: SideTitles(showTitles: false)),
+                    ),
+                    gridData: FlGridData(
+                      show: true,
+                      horizontalInterval: 2,
+                    ),
+                    borderData: FlBorderData(
+                      show: true,
+                      border: Border.all(
+                        color: Colors.grey,
+                        width: 0.5.w,
+                      ),
+                    ),
+                  ),
+                ),
+              ),
             ],
           ),
         ),
@@ -760,39 +760,51 @@ class InfoScreen extends StatelessWidget {
 
       appBar: AppBar(
         backgroundColor: Colors.transparent,
+        elevation: 0,
         title: Row(
           mainAxisAlignment: MainAxisAlignment.start,
           children: [
-            Text("Info",
-            style: TextStyle(fontSize: 25, fontWeight: FontWeight.bold, color: Colors.grey)
+            Text(
+              "Info",
+              style: TextStyle(
+                fontSize: 25,
+                fontWeight: FontWeight.bold,
+                color: Colors.grey,
+              ),
             ),
           ],
         ),
       ),
 
-      //Elenco Parametri
-      body: SingleChildScrollView( // Per lo scorrimento
-        child: Center(
+      body: SingleChildScrollView(
+        child: Padding(
+          padding: const EdgeInsets.all(16.0),
           child: Column(
-            mainAxisAlignment: MainAxisAlignment.start,
             children: [
-              SizedBox(height: 25),
-
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceAround,
-                children: [
-                  Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      infoBullet("Versione App", Icons.info, Colors.blue),
-                      infoBullet("Sviluppatore", Icons.person, Colors.green),
-                      infoBullet("Contatti", Icons.mail, Colors.redAccent),
-                      infoBullet("Privacy Policy", Icons.lock, Colors.deepOrange),
-                    ],
-                  ),
-                ],
+              infoCard(
+                title: "Versione App",
+                description: "1.0.0 - Ultima versione stabile dell'app meteo eco-friendly.",
+                icon: Icons.info,
+                color: Colors.blue,
               ),
-
+              infoCard(
+                title: "Sviluppatore",
+                description: "Classe 3IA 2024/2025 - I.T.T.S Fedi-Fermi di Pistoia\n\nSviluppato da: \n- Cai Dal Pino Gabriele\n- Arinci Andrea\n- Con il sostengo della classe",
+                icon: Icons.person,
+                color: Colors.green,
+              ),
+              infoCard(
+                title: "Contatti",
+                description: "- caidalpino.gabriele@studenti-ittfedifermi.edu.it\n\n - arinci.andrea@studenti-ittfedifermi.edu.it\n\n - d.bini@ittfedifermi.edu.it",
+                icon: Icons.mail,
+                color: Colors.redAccent,
+              ),
+              infoCard(
+                title: "Privacy Policy",
+                description: "I tuoi dati non vengono condivisi in nessun modo.",
+                icon: Icons.lock,
+                color: Colors.deepOrange,
+              ),
             ],
           ),
         ),
@@ -800,19 +812,56 @@ class InfoScreen extends StatelessWidget {
     );
   }
 
-  Widget infoBullet(String text, IconData iconData, Color color) {
-    return Padding(
-      padding: const EdgeInsets.only(bottom: 6.0),
+  Widget infoCard({
+    required String title,
+    required String description,
+    required IconData icon,
+    required Color color,
+  }) {
+    return Container(
+      margin: const EdgeInsets.symmetric(vertical: 10),
+      padding: const EdgeInsets.all(16),
+      decoration: BoxDecoration(
+        color: Colors.grey.shade100,
+        borderRadius: BorderRadius.circular(20),
+        boxShadow: [
+          BoxShadow(
+            color: Colors.grey.shade300,
+            blurRadius: 5,
+            offset: Offset(0, 3),
+          )
+        ],
+      ),
       child: Row(
+        crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Icon(iconData, color: color, size: 30),
-          SizedBox(width: 8),
-          Text(text, style: TextStyle(fontSize: 30, fontWeight: FontWeight.bold,)),
+          Icon(icon, color: color, size: 35),
+          SizedBox(width: 12),
+          Expanded(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  title,
+                  style: TextStyle(
+                    fontSize: 22,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+                SizedBox(height: 6),
+                Text(
+                  description,
+                  style: TextStyle(fontSize: 16, color: Colors.black87),
+                ),
+              ],
+            ),
+          ),
         ],
       ),
     );
   }
 }
+
 
 class EndDrawerGlobale extends StatelessWidget {
   const EndDrawerGlobale({super.key});
@@ -845,7 +894,145 @@ class EndDrawerGlobale extends StatelessWidget {
           ListTile(
             leading: Icon(Icons.settings),
             title: Text("Impostazioni"),
-            onTap: () => Navigator.pop(context),
+            onTap: () => Navigator.push(
+              context,
+              MaterialPageRoute(builder: (context) => ImpostazioniScreen()),
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+
+class ImpostazioniScreen extends StatelessWidget {
+  const ImpostazioniScreen({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      backgroundColor: Colors.white,
+      appBar: AppBar(
+        backgroundColor: Colors.transparent,
+        title: Row(
+          children: [
+            Icon(Icons.settings, color: Colors.grey[700], size: 7.w),
+            SizedBox(width: 2.w),
+            Text(
+              "Impostazioni",
+              style: TextStyle(
+                fontSize: 6.w,
+                fontWeight: FontWeight.bold,
+                color: Colors.grey[800],
+              ),
+            ),
+          ],
+        ),
+      ),
+      endDrawer: EndDrawerGlobale(),
+      body: Padding(
+        padding: EdgeInsets.all(5.w),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            settingTile(
+              icon: Icons.dark_mode,
+              title: "Tema Scuro",
+              description: "Attiva o disattiva il tema scuro dell'app.",
+              onTap: () {
+                apriDialogo(context, "Tema Scuro", "Funzionalità ancora in sviluppo.");
+              },
+            ),
+            settingTile(
+              icon: Icons.notifications,
+              title: "Notifiche",
+              description: "Gestisci le notifiche sull'inquinamento e il meteo.",
+              onTap: () {
+                apriDialogo(context, "Notifiche", "Riceverai notifiche solo se abilitate.");
+              },
+            ),
+            settingTile(
+              icon: Icons.update,
+              title: "Aggiornamenti",
+              description: "Frequenza con cui l'app aggiorna i dati.",
+              onTap: () {
+                apriDialogo(context, "Aggiornamenti", "I dati vengono aggiornati ogni ora.");
+              },
+            ),
+            settingTile(
+              icon: Icons.language,
+              title: "Lingua",
+              description: "Seleziona la lingua preferita per l'app.",
+              onTap: () {
+                apriDialogo(context, "Lingua", "Lingua attuale: Italiano.");
+              },
+            ),
+            settingTile(
+              icon: Icons.info,
+              title: "Info App",
+              description: "Versione, sviluppatori e licenze.",
+              onTap: () {
+                apriDialogo(context, "Info App", "EcoWeather v1.0\nSviluppata da Cai e Arinci :)");
+              },
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+
+  Widget settingTile({
+    required IconData icon,
+    required String title,
+    required String description,
+    required VoidCallback onTap,
+  }) {
+    return Padding(
+      padding: EdgeInsets.symmetric(vertical: 3.w),
+      child: GestureDetector(
+        onTap: onTap,
+        child: Row(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            CircleAvatar(
+              radius: 5.w,
+              backgroundColor: Colors.teal[100],
+              child: Icon(icon, color: Colors.teal[700], size: 6.w),
+            ),
+            SizedBox(width: 4.w),
+            Expanded(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    title,
+                    style: TextStyle(fontSize: 5.w, fontWeight: FontWeight.bold),
+                  ),
+                  SizedBox(height: 1.w),
+                  Text(
+                    description,
+                    style: TextStyle(fontSize: 4.w, color: Colors.grey[600]),
+                  ),
+                ],
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+
+  void apriDialogo(BuildContext context, String titolo, String contenuto) {
+    showDialog(
+      context: context,
+      builder: (_) => AlertDialog(
+        title: Text(titolo, style: TextStyle(fontWeight: FontWeight.bold)),
+        content: Text(contenuto),
+        actions: [
+          TextButton(
+            child: const Text("OK"),
+            onPressed: () => Navigator.of(context).pop(),
           ),
         ],
       ),
